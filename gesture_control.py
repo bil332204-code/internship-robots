@@ -1,4 +1,5 @@
 import socket
+import time
 import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
@@ -57,7 +58,8 @@ detector = vision.HandLandmarker.create_from_options(options)
 
 cap = cv2.VideoCapture(0)
 last_action = None
-
+last_sent_time = 0
+DELAY = 5  # seconds
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -70,8 +72,11 @@ while True:
     if result.hand_landmarks:
         gesture = detect_gesture(result.hand_landmarks)
         if gesture and gesture != last_action:
-            send_to_arc(gesture)
-            last_action = gesture
+            current_time = time.time()
+            if (current_time - last_sent_time) > DELAY:
+                send_to_arc(gesture)
+                last_action = gesture
+                last_sent_time = current_time
         if gesture:
             cv2.putText(frame, gesture, (10, 50),
                        cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 3)
