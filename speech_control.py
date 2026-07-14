@@ -1,7 +1,5 @@
 import speech_recognition as sr
-import os
 
-# Gesture to JD action mapping
 commands = {
     "wave": "Wave",
     "bow": "Bow",
@@ -17,43 +15,34 @@ def send_to_arc(action):
         f.write(action)
     print(f"Sent to JD: {action}")
 
-def listen():
-    recognizer = sr.Recognizer()
-    mic = sr.Microphone(device_index=1)  # Microphone Array (Realtek)
+recognizer = sr.Recognizer()
 
-    print("🎤 Calibrating microphone...")
-    with mic as source:
-        recognizer.adjust_for_ambient_noise(source, duration=1)
-    print("✅ Ready! Speak commands...")
+print("🎤 Calibrating microphone...")
+with sr.Microphone() as source:
+    recognizer.adjust_for_ambient_noise(source, duration=1)
+print("✅ Ready! Speak now...")
 
-    while True:
-        try:
-            with mic as source:
-                print("Listening...")
-                audio = recognizer.listen(source, timeout=10, phrase_time_limit=3)
+while True:
+    try:
+        with sr.Microphone() as source:
+            print("Listening...")
+            audio = recognizer.listen(source, timeout=10, phrase_time_limit=3)
 
-            command = recognizer.recognize_google(audio).lower()
-            print(f"Heard: {command}")
+        command = recognizer.recognize_google(audio).lower()
+        print(f"Heard: {command}")
 
-            matched = False
-            for keyword, action in commands.items():
-                if keyword in command:
-                    send_to_arc(action)
-                    matched = True
-                    break
-
-            if not matched:
-                print("Command not recognized!")
-
-            if "exit" in command:
-                print("Stopping...")
+        for keyword, action in commands.items():
+            if keyword in command:
+                send_to_arc(action)
                 break
 
-        except sr.WaitTimeoutError:
-            print("Listening again...")
-        except sr.UnknownValueError:
-            print("Could not understand, try again...")
-        except Exception as e:
-            print(f"Error: {e}")
+        if "exit" in command:
+            print("Stopping...")
+            break
 
-listen()
+    except sr.WaitTimeoutError:
+        print("Listening again...")
+    except sr.UnknownValueError:
+        print("Could not understand, try again...")
+    except Exception as e:
+        print(f"Error: {e}")
