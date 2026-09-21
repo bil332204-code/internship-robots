@@ -1,0 +1,46 @@
+// firestore.rules
+// -----------------
+// Locks down the "people" and "admin_config" collections so no client
+// other than this project's own backend can read or write them.
+//
+// This does NOT protect against the Python backend itself -- it uses
+// the Firebase Admin SDK with a service account key
+// (firebase_config.py), which always bypasses Security Rules by
+// design. These rules exist purely to protect against any OTHER
+// client that might ever talk to this Firestore project directly --
+// e.g. if a mobile app, a public web frontend, or someone with just
+// the (non-secret) Firebase project config were ever added later.
+//
+// Deploy with the Firebase CLI from the project root:
+//   firebase deploy --only firestore:rules
+// (requires `firebase init firestore` once, to link this file to your
+// Firebase project.)
+//
+// IMPORTANT: the project must be taken OUT of Firestore's default
+// "test mode" (fully open, expires after 30 days) by deploying this
+// file -- test mode is not safe to leave running past initial setup.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Face embeddings and the admin password hash: no client-side
+    // reads or writes at all. Only the Admin SDK (this Flask app)
+    // touches this data.
+    match /people/{personId} {
+      allow read, write: if false;
+    }
+
+    match /admin_config/{docId} {
+      allow read, write: if false;
+    }
+
+    // Default deny for anything else added to this project later --
+    // safer than an implicit allow if a new collection is introduced
+    // and someone forgets to add rules for it.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

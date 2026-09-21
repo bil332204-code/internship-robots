@@ -1,0 +1,20 @@
+conversation_history.json
+.env
+env
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Firebase service account key -- NEVER commit this (same mistake as the
+# earlier plaintext-Gemini-key incident, do not repeat it with this one)
+*firebase*key*.json
+serviceAccountKey.json
+
+# Local offline fallback cache of face embeddings -- generated at runtime,
+# not something that needs to live in git
+face_embeddings_cache.json
+
+# Legacy LBPH artifacts, being phased out by the Firestore rebuild
+face_model.yml
+labels.json

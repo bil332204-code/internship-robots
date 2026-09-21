@@ -1,0 +1,25 @@
+# ── Core vision / control (Gesture, Emotion, Pose modes) ──
+opencv-contrib-python==4.10.0.84   # pinned version required for DeepFace compatibility
+mediapipe
+deepface
+numpy
+
+# ── Audio (Speech Control, Ask JD voice/web modes) ──
+sounddevice
+faster-whisper
+
+# ── Ask JD (conversational AI) ──
+ollama
+flask
+
+# ── Find Object / Who Is This (teammates' module) ──
+ultralytics        # YOLOv8 object detection
+python-dotenv       # loads .env for Gemini API keys + Firebase config
+google-genai         # Gemini API client
+
+# ── Face recognition (Firestore-backed, DeepFace embeddings) ──
+firebase-admin      # Firestore access for face_db.py / firebase_config.py
+tf-keras            # required companion package for deepface's backend
+
+# ── Legacy / optional ──
+# fastapi   # only used by the old, currently-unused main.py experiment
