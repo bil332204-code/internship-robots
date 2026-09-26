@@ -18,6 +18,22 @@ The system was developed as the final project of a **6-week Humanoid Robotics In
 - **Security gate** — face recognition is used as access control so only authorized users can operate the robot.
 - **Unified dashboard** — all major modes are available through a browser interface as well as a terminal control center.
 
+## Demo Snapshots
+
+The images below were extracted from the narrated project demonstration.
+
+### Vision-Based Robot Control
+
+![AEGIS-JD vision control demo](assets/demo/vision-control-demo.jpg)
+
+### Ask JD Browser Interface
+
+![Ask JD browser dashboard](assets/demo/ask-jd-dashboard.jpg)
+
+### Face Recognition Demo
+
+![AEGIS-JD face recognition demo](assets/demo/face-recognition-demo.jpg)
+
 ## System Architecture
 
 ```text
