@@ -6,6 +6,12 @@ AEGIS-JD is a unified, multimodal AI control system for the **EZ-Robot JD humano
 
 The system was developed as the final project of a **6-week Humanoid Robotics Internship (26 June–7 August 2026)** at the **Educational Robotics Lab, School of Electrical Engineering and Computer Science (SEECS), National University of Sciences & Technology (NUST)**, under the coordination of **Dr. Farkhanda Afzal**.
 
+## Full Narrated Demo
+
+▶️ **[Watch the complete AEGIS-JD project demonstration on YouTube](https://youtu.be/DE5jxKxOTgs)**
+
+The video walks through the integrated system and demonstrates the robot-control, conversational-AI, vision and face-recognition workflows in action.
+
 ## What AEGIS-JD Can Do
 
 - **Gesture control** — MediaPipe hand landmarks map seven hand gestures to JD actions.
